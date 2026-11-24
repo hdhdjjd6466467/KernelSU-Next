@@ -1,6 +1,7 @@
 package com.rifsxd.ksunext.ui.screen
 
 
+import com.rifsxd.ksunext.ui.theme.OpaqueSurfaceTheme
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -860,7 +861,7 @@ fun ModuleItem(
 
     if (module.hasWebUi || module.hasActionScript) {
         if (showMenu) {
-            Dialog(
+            OpaqueSurfaceTheme { Dialog(
                 onDismissRequest = { showMenu = false }
             ) {
                 Card(
@@ -943,7 +944,7 @@ fun ModuleItem(
                         }
                     }
                 }
-            }
+            } }
         }
     }
 

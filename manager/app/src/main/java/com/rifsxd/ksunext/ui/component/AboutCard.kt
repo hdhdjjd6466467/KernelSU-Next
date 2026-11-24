@@ -1,5 +1,6 @@
 package com.rifsxd.ksunext.ui.component
 
+import com.rifsxd.ksunext.ui.theme.OpaqueSurfaceTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -43,11 +44,11 @@ fun AboutCard() {
 
 @Composable
 fun AboutDialog(dismiss: () -> Unit) {
-    Dialog(
+    OpaqueSurfaceTheme { Dialog(
         onDismissRequest = { dismiss() }
     ) {
         AboutCard()
-    }
+    } }
 }
 
 @Composable

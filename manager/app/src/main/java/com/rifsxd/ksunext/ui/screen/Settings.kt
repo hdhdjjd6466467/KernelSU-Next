@@ -1,5 +1,6 @@
 package com.rifsxd.ksunext.ui.screen
 
+import com.rifsxd.ksunext.ui.theme.OpaqueSurfaceTheme
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -740,7 +741,7 @@ private fun SusfsLoadBottomSheet(
     onUnload: () -> Unit,
     susfsGuardLkmLoaded: Boolean
 ) {
-    ModalBottomSheet(onDismissRequest = onDismiss) {
+    OpaqueSurfaceTheme { ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -799,7 +800,7 @@ private fun SusfsLoadBottomSheet(
                 )
             }
         }
-    }
+    } }
 }
 
 @Composable
@@ -1029,7 +1030,7 @@ private fun ExportLogBottomSheet(
     onSave: () -> Unit,
     onShare: () -> Unit
 ) {
-    ModalBottomSheet(
+    OpaqueSurfaceTheme { ModalBottomSheet(
         onDismissRequest = onDismiss,
         content = {
             Row(
@@ -1085,7 +1086,7 @@ private fun ExportLogBottomSheet(
                 }
             }
         }
-    )
+    ) }
 }
 
 @Composable
@@ -1176,7 +1177,7 @@ fun rememberUninstallDialog(onSelected: (UninstallType) -> Unit): DialogHandle {
         }
 
         var selection = UninstallType.NONE
-        ListDialog(
+        OpaqueSurfaceTheme { ListDialog(
             state = rememberUseCaseState(visible = true, onFinishedRequest = {
                 if (selection != UninstallType.NONE) {
                     onSelected(selection)
@@ -1191,7 +1192,7 @@ fun rememberUninstallDialog(onSelected: (UninstallType) -> Unit): DialogHandle {
             ) { index, _ ->
                 selection = options[index]
             }
-        )
+        ) }
     }
 }
 

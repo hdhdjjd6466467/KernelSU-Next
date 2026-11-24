@@ -1,5 +1,6 @@
 package com.rifsxd.ksunext.ui.component
 
+import com.rifsxd.ksunext.ui.theme.OpaqueSurfaceTheme
 import android.graphics.text.LineBreaker
 import android.os.Build
 import android.os.Parcelable
@@ -380,7 +381,7 @@ fun rememberCustomDialog(composable: @Composable (dismiss: () -> Unit) -> Unit):
 
 @Composable
 private fun LoadingDialog() {
-    Dialog(
+    OpaqueSurfaceTheme { Dialog(
         onDismissRequest = {},
         properties = DialogProperties(dismissOnClickOutside = false, dismissOnBackPress = false)
     ) {
@@ -393,7 +394,7 @@ private fun LoadingDialog() {
                 CircularProgressIndicator()
             }
         }
-    }
+    } }
 }
 
 @Composable

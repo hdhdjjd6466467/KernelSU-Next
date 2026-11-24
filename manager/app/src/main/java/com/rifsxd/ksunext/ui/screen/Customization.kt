@@ -1,5 +1,6 @@
 package com.rifsxd.ksunext.ui.screen
 
+import com.rifsxd.ksunext.ui.theme.OpaqueSurfaceTheme
 import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -226,7 +227,7 @@ private fun LanguageBottomSheet(
 ) {
     val sheetState = rememberModalBottomSheetState()
 
-    ModalBottomSheet(
+    OpaqueSurfaceTheme { ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.background
@@ -267,7 +268,7 @@ private fun LanguageBottomSheet(
                 )
             }
         }
-    }
+    } }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

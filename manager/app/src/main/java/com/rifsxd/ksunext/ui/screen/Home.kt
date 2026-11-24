@@ -790,7 +790,7 @@ private fun StatusCard(
 
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(containerColor = run {
-            if (ksuVersionParam != null) MaterialTheme.colorScheme.primary
+            if (ksuVersionParam != null) MaterialTheme.colorScheme.primary.copy(alpha = 0.85f)
             else if (kernelVersionParam.isGKI()) MaterialTheme.colorScheme.secondaryContainer
             else MaterialTheme.colorScheme.errorContainer
         })

@@ -1,5 +1,6 @@
 package com.rifsxd.ksunext.ui.screen
 
+import com.rifsxd.ksunext.ui.theme.OpaqueSurfaceTheme
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -492,7 +493,7 @@ fun rememberSelectKmiDialog(onSelected: (String?) -> Unit): DialogHandle {
         }
 
         var selection by remember { mutableStateOf<String?>(null) }
-        ListDialog(state = rememberUseCaseState(visible = true, onFinishedRequest = {
+        OpaqueSurfaceTheme { ListDialog(state = rememberUseCaseState(visible = true, onFinishedRequest = {
             onSelected(selection)
         }, onCloseRequest = {
             dismiss()
@@ -503,7 +504,7 @@ fun rememberSelectKmiDialog(onSelected: (String?) -> Unit): DialogHandle {
             options = options,
         ) { _, option ->
             selection = option.titleText
-        })
+        }) }
     }
 }
 

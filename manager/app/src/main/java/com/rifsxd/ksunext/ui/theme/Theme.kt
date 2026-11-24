@@ -7,7 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
@@ -80,7 +82,7 @@ fun KernelSUTheme(
     }
 
     val colorScheme = if (transparentBackground) {
-        baseColorScheme.copy(background = Color.Transparent)
+        baseColorScheme.translucent()
     } else {
         baseColorScheme
     }
@@ -89,11 +91,53 @@ fun KernelSUTheme(
         darkMode = darkTheme
     )
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(LocalOpaqueColorScheme provides baseColorScheme) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
+}
+
+// Alpha for cards / containers and for bars / list rows when the app background image is shown
+private const val CARD_ALPHA = 0.72f
+private const val BAR_ALPHA = 0.6f
+
+/**
+ * Page-level colors made see-through so the background image shows:
+ * cards (surfaceContainerLow / Highest and the tonal containers), and surface
+ * (top app bars, list rows, bottom bar). surfaceContainer / High stay opaque because
+ * menus, scrolled top bars and AlertDialogs use them.
+ */
+private fun ColorScheme.translucent(): ColorScheme = copy(
+    background = Color.Transparent,
+    surface = surface.copy(alpha = BAR_ALPHA),
+    surfaceContainerLow = surfaceContainerLow.copy(alpha = CARD_ALPHA),
+    surfaceContainerHighest = surfaceContainerHighest.copy(alpha = CARD_ALPHA),
+    primaryContainer = primaryContainer.copy(alpha = CARD_ALPHA),
+    secondaryContainer = secondaryContainer.copy(alpha = CARD_ALPHA),
+    tertiaryContainer = tertiaryContainer.copy(alpha = CARD_ALPHA),
+    errorContainer = errorContainer.copy(alpha = CARD_ALPHA),
+)
+
+/** The fully opaque color scheme, for overlays (dialogs, bottom sheets) drawn over translucent pages. */
+val LocalOpaqueColorScheme = staticCompositionLocalOf<ColorScheme?> { null }
+
+/** Renders [content] with opaque colors. Wrap dialogs and bottom sheets in this. */
+@Composable
+fun OpaqueSurfaceTheme(content: @Composable () -> Unit) {
+    val opaque = LocalOpaqueColorScheme.current
+    if (opaque == null) {
+        content()
+    } else {
+        MaterialTheme(
+            colorScheme = opaque,
+            typography = MaterialTheme.typography,
+            shapes = MaterialTheme.shapes,
+            content = content
+        )
+    }
 }
 
 @Composable

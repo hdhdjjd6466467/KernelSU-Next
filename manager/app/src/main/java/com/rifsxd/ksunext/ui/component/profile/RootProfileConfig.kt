@@ -1,5 +1,6 @@
 package com.rifsxd.ksunext.ui.component.profile
 
+import com.rifsxd.ksunext.ui.theme.OpaqueSurfaceTheme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -200,7 +201,7 @@ fun GroupsPanel(selected: List<Groups>, closeSelection: (selection: Set<Groups>)
         }
 
         val selection = HashSet(selected)
-        ListDialog(
+        OpaqueSurfaceTheme { ListDialog(
             state = rememberUseCaseState(visible = true, onFinishedRequest = {
                 closeSelection(selection)
             }, onCloseRequest = {
@@ -221,7 +222,7 @@ fun GroupsPanel(selected: List<Groups>, closeSelection: (selection: Set<Groups>)
                     selection.add(group)
                 }
             }
-        )
+        ) }
     }
 
     OutlinedCard(
@@ -272,7 +273,7 @@ fun CapsPanel(
         }
 
         val selection = HashSet(selected)
-        ListDialog(
+        OpaqueSurfaceTheme { ListDialog(
             state = rememberUseCaseState(visible = true, onFinishedRequest = {
                 closeSelection(selection)
             }, onCloseRequest = {
@@ -292,7 +293,7 @@ fun CapsPanel(
                     selection.add(group)
                 }
             }
-        )
+        ) }
     }
 
     OutlinedCard(
@@ -341,7 +342,7 @@ private fun RootProfileFlagPanel(
         }
 
         val selection = HashSet(selected)
-        ListDialog(
+        OpaqueSurfaceTheme { ListDialog(
             state = rememberUseCaseState(visible = true, onFinishedRequest = {
                 onSelectionChange(selection.toList())
             }, onCloseRequest = {
@@ -361,7 +362,7 @@ private fun RootProfileFlagPanel(
                     selection.add(flag)
                 }
             }
-        )
+        ) }
     }
 
     OutlinedCard(
@@ -489,7 +490,7 @@ private fun SELinuxPanel(
             )
         )
 
-        InputDialog(
+        OpaqueSurfaceTheme { InputDialog(
             state = rememberUseCaseState(visible = true,
                 onFinishedRequest = {
                     onSELinuxChange(domain, rules)
@@ -506,7 +507,7 @@ private fun SELinuxPanel(
                     // Handle selection
                 },
             )
-        )
+        ) }
     }
 
     ListItem(headlineContent = {

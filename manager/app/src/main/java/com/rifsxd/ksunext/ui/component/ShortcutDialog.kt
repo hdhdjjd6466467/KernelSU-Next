@@ -1,5 +1,6 @@
 package com.rifsxd.ksunext.ui.component
 
+import com.rifsxd.ksunext.ui.theme.OpaqueSurfaceTheme
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -68,7 +69,7 @@ fun ShortcutDialog(
         uri?.let { iconUri = it.toString() }
     }
 
-    Dialog(onDismissRequest = onDismiss) {
+    OpaqueSurfaceTheme { Dialog(onDismissRequest = onDismiss) {
         Card(
             modifier = Modifier.fillMaxWidth(0.95f),
         ) {
@@ -248,5 +249,5 @@ fun ShortcutDialog(
                 }
             }
         }
-    }
+    } }
 }
