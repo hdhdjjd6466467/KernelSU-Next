@@ -8,7 +8,11 @@
     <string name="issue_report_github_link">https://github.com/KernelSU-Next/KernelSU-Next/issues</string>
     <string name="issue_report_telegram_link">https://t.me/ksunext</string>
     <string name="confirm">Confirm</string>
-    <string name="app_name" translatable="false">KernelSU-Next</string>
+    <string name="app_name" translatable="false">牢大爱肘击</string>
+    <string name="qq_group_title" translatable="false">QQ交流群</string>
+    <string name="qq_group_number" translatable="false">1054345783</string>
+    <string name="qq_group_tap_to_copy" translatable="false">点击复制群号</string>
+    <string name="qq_group_copied" translatable="false">已复制群号：%1$s</string>
     <string name="home">Home</string>
     <string name="home_not_installed">Not installed</string>
     <string name="home_click_to_install">Click to install</string>

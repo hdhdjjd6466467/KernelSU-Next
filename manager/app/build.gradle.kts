@@ -30,6 +30,11 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            // No release keystore configured (e.g. CI on a fork without KEYSTORE secrets):
+            // sign with the debug key so the APK is still installable.
+            if (!project.hasProperty("KEYSTORE_FILE")) {
+                signingConfig = signingConfigs.getByName("debug")
+            }
         }
     }
 

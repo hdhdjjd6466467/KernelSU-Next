@@ -280,6 +280,8 @@ fun HomeScreen(navigator: DestinationsNavigator) {
                 UpdateCard()
             }
 
+            QQGroupCard()
+
             InfoCard(autoExpand = developerOptionsEnabled)
             IssueReportCard()
             ContributorsCard()
@@ -700,14 +702,17 @@ private fun TopBar(
                     }
                 }
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_ksu_next),
+                Image(
+                    painter = painterResource(R.drawable.ic_launcher_image),
                     contentDescription = null,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(end = 8.dp)
+                        .size(32.dp)
                         .graphicsLayer {
                             rotationZ = rotation
                         }
+                        .clip(CircleShape)
                 )
                 Text(
                     text = stringResource(R.string.app_name),
@@ -1422,6 +1427,58 @@ private fun ContributorRow(
                 text = stringResource(R.string.support),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+@Composable
+fun QQGroupCard() {
+    val context = LocalContext.current
+    val groupNumber = stringResource(R.string.qq_group_number)
+    val copiedMessage = stringResource(R.string.qq_group_copied, groupNumber)
+
+    ElevatedCard(
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE)
+                        as android.content.ClipboardManager
+                    clipboard.setPrimaryClip(
+                        android.content.ClipData.newPlainText("QQ", groupNumber)
+                    )
+                    Toast.makeText(context, copiedMessage, Toast.LENGTH_SHORT).show()
+                }
+                .padding(horizontal = 24.dp, vertical = 20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(R.string.qq_group_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = groupNumber,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    text = stringResource(R.string.qq_group_tap_to_copy),
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            Icon(
+                imageVector = Icons.Filled.ContentCopy,
+                contentDescription = stringResource(R.string.qq_group_tap_to_copy)
             )
         }
     }

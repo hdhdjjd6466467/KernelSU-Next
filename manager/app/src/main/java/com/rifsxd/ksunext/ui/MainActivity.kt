@@ -16,6 +16,9 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.animation.*
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -70,6 +73,7 @@ import com.rifsxd.ksunext.R
 import com.rifsxd.ksunext.ksuApp
 import com.rifsxd.ksunext.ui.screen.BottomBarDestination
 import com.rifsxd.ksunext.ui.screen.FlashIt
+import com.rifsxd.ksunext.ui.theme.AppBackground
 import com.rifsxd.ksunext.ui.theme.KernelSUTheme
 import com.rifsxd.ksunext.ui.util.*
 import com.rifsxd.ksunext.ui.viewmodel.ModuleViewModel
@@ -261,7 +265,9 @@ class MainActivity : FragmentActivity() {
             handleIntent(intent)
 
         setContent { Box(modifier = Modifier.fillMaxSize()) {
-            KernelSUTheme(amoledMode = amoledModeState.value) {
+            KernelSUTheme(amoledMode = amoledModeState.value, transparentBackground = true) {
+                AppBackground()
+
                 var showSplash by remember { mutableStateOf(true) }
                 var splashRotationTarget by remember { mutableStateOf(0f) }
                 val splashRotation by animateFloatAsState(
@@ -298,13 +304,14 @@ class MainActivity : FragmentActivity() {
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_ksu_next),
+                                Image(
+                                    painter = painterResource(R.drawable.ic_launcher_image),
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    contentScale = ContentScale.Crop,
                                     modifier = Modifier
                                         .size(120.dp)
                                         .graphicsLayer { rotationZ = splashRotation }
+                                        .clip(CircleShape)
                                 )
                             }
                         }

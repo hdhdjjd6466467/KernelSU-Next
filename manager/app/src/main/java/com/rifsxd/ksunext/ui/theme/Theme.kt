@@ -40,9 +40,11 @@ fun KernelSUTheme(
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     amoledMode: Boolean = false,
+    // When true, screen backgrounds are transparent so AppBackground() drawn behind them shows through
+    transparentBackground: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
+    val baseColorScheme = when {
         amoledMode && darkTheme && dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             val dynamicScheme = dynamicDarkColorScheme(context)
@@ -75,6 +77,12 @@ fun KernelSUTheme(
         }
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
+    }
+
+    val colorScheme = if (transparentBackground) {
+        baseColorScheme.copy(background = Color.Transparent)
+    } else {
+        baseColorScheme
     }
 
     SystemBarStyle(
