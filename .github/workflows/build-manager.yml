@@ -3,6 +3,9 @@ name: Build Manager
 on:
   workflow_call:
   workflow_dispatch:
+  # Build the 牢大爱肘击 manager automatically on every push to the laoda branch
+  push:
+    branches: [ "laoda" ]
 
 jobs:
   build-lkm:
